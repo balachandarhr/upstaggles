@@ -69,7 +69,7 @@ function applyQuality(t, keepRatio) {
 function pickQuality() {
   const q = params.get('q') || save.settings.quality;
   autoQ = q === 'auto';
-  applyQuality(q === 'high' ? 2 : q === 'medium' ? 1 : q === 'low' ? 0 : (isTouch ? 1 : 2));
+  const Q = { high: 2, medium: 1, low: 0, 2: 2, 1: 1, 0: 0 }[q]; applyQuality(Q !== undefined ? Q : (isTouch ? 1 : 2));
 }
 function resize() {
   const w = window.innerWidth, h = window.innerHeight;
@@ -544,8 +544,8 @@ function loadLevel(idx) {
   const rnd = rng(1234 + idx * 77);
   paintSky(W.sky[0], W.sky[1]);
   scene.fog.near = W.fog[0]; scene.fog.far = W.fog[1];
-  sunLight.color.setHex(W.sun); sunLight.intensity = W.dark ? .7 : W.props === 'space' ? 1.6 : W.props === 'city' ? 1.3 : W.props === 'ocean' ? 1.8 : W.props === 'volcano' ? 2.2 : 3.0;
-  hemi.intensity = W.dark ? .55 : .85; hemi.groundColor.setHex(W.hills[0]);
+  sunLight.color.setHex(W.sun); sunLight.intensity = W.dark ? .7 : W.props === 'space' ? 1.6 : W.props === 'city' ? 1.3 : W.props === 'ocean' ? 1.8 : W.props === 'volcano' ? 2.2 : (W.props === 'snow' || W.props === 'sky') ? 1.6 : 3.0;
+  hemi.intensity = W.dark ? .55 : (W.props === 'snow' || W.props === 'sky') ? .6 : .85; hemi.groundColor.setHex(W.hills[0]);
   heroLight.intensity = W.dark ? 30 : (W.props === 'city' || W.props === 'space') ? 10 : 0;
   stars.visible = !!(W.dark || W.props === 'space' || W.props === 'city');
   sunDisc.visible = !W.dark; sunDisc.material.color.setHex(W.sun).multiplyScalar(2);

@@ -123,7 +123,7 @@ button.danger{background:#e2445c;box-shadow:0 5px 0 #8f1e30}
 .pill.timer{font-size:17px}.pill.timer.low{background:#d6304acc;animation:hudPulse .5s infinite}
 #hudHearts .sh{font-size:16px;margin-left:4px}
 #fpsTxt{position:absolute;top:44px;right:0;font-size:12px;background:#0006;padding:2px 8px;border-radius:8px}
-#bossBar{position:absolute;top:calc(max(10px,env(safe-area-inset-top)) + 104px);left:50%;transform:translateX(-50%);width:min(460px,70vw);text-align:center;pointer-events:none}
+#bossBar{position:absolute;top:calc(max(10px,env(safe-area-inset-top)) + 128px);left:50%;transform:translateX(-50%);width:min(460px,70vw);text-align:center;pointer-events:none}
 #bossName{font-weight:900;font-size:16px;color:#ffd23f;text-shadow:0 2px 0 #0008;letter-spacing:1px}
 #bossBar .bar{height:14px;border-radius:8px;background:#0007;border:2px solid #fff8;overflow:hidden}
 #bossFill{height:100%;width:100%;background:linear-gradient(90deg,#ff3b5c,#ff9f1c);transition:width .3s}
@@ -136,6 +136,15 @@ button.danger{background:#e2445c;box-shadow:0 5px 0 #8f1e30}
   #levelGrid{gap:8px}
   .worldCard{min-height:92px;padding:10px}.worldCard .wt{font-size:18px}
   .charCard{width:180px;padding:10px}.charCard .av{width:70px;height:70px}
-  #bossBar{top:96px;width:min(360px,50vw)}
+  #bossBar{top:116px;width:min(360px,50vw)}
   .settings .row{font-size:13px}
+}
+/* short landscape phones: keep the whole home menu on screen */
+@media (max-height:540px){
+  #home{gap:8px!important;overflow-y:auto}
+  #home .logo.small{font-size:clamp(28px,7vh,44px)}
+  #home .stats{font-size:16px;padding:5px 14px}
+  #home .menu{gap:6px}
+  #home .menu button{padding:6px 16px;font-size:16px}
+  #home .menu button.big{padding:8px 16px;font-size:19px}
 }
