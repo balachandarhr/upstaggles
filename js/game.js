@@ -31,10 +31,11 @@ function tone(freq, dur, type, vol, slide, delay) {
   g.gain.setValueAtTime(vol || 0.15, t0); g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
   o.connect(g); g.connect(a.destination); o.start(t0); o.stop(t0 + dur + 0.02);
 }
-function sfx(name) {
+let coinChain = 0, lastCoinT = 0;
+function sfx(name, n) {
   if (!save.sound) return;
   switch (name) {
-    case 'coin': tone(988, .08, 'square', .06); tone(1319, .18, 'square', .06, 0, .07); break;
+    case 'coin': { const k = Math.pow(1.06, Math.min(n || 0, 12)); tone(988 * k, .07, 'square', .06); tone(1319 * k, .2, 'square', .06, 0, .06); tone(2637 * k, .12, 'sine', .03, 0, .06); break; }
     case 'jump': tone(300, .18, 'triangle', .14, 620); break;
     case 'land': tone(140, .06, 'sine', .08); break;
     case 'spin': tone(500, .2, 'sawtooth', .05, 1200); break;
@@ -456,8 +457,20 @@ function updateEntities(dt) {
   for (const c of w.coins) {
     if (c.taken) { if (c.t < .35) { c.t += dt; c.m.position.y += dt * 5; c.m.scale.setScalar(Math.max(.01, 1 - c.t * 2.8)); c.m.rotation.y += dt * 25; if (c.t >= .35) c.m.visible = false; } continue; }
     c.m.rotation.y += dt * 3;
-    const dx = c.x - P.pos.x, dy = c.y - pc, dz = c.z - P.pos.z;
-    if (dx * dx + dz * dz < .9 && Math.abs(dy) < 1.15) { c.taken = true; w.got++; sfx('coin'); burst(c.x, c.y, c.z, 0xffd23f, 5, 3); updateHUD(); }
+    let dx = c.x - P.pos.x, dy = c.y - pc, dz = c.z - P.pos.z;
+    const d2 = dx * dx + dy * dy + dz * dz;
+    // magnet: coins within 3.6 units fly to the hero, faster as they get closer
+    if (d2 < 3.6 * 3.6 || c.mag) {
+      c.mag = true; c.mv = Math.min(30, (c.mv || 4) + dt * 40);
+      const d = Math.sqrt(d2) || 1, step = Math.min(d, c.mv * dt);
+      c.x -= dx / d * step; c.y -= dy / d * step; c.z -= dz / d * step; c.m.position.set(c.x, c.y, c.z);
+      dx = c.x - P.pos.x; dy = c.y - pc; dz = c.z - P.pos.z;
+    }
+    // generous pickup: 1.6 horizontal, 2.0 vertical
+    if (dx * dx + dz * dz < 1.6 * 1.6 && Math.abs(dy) < 2.0) {
+      c.taken = true; w.got++; coinChain = (performance.now() - lastCoinT < 600) ? coinChain + 1 : 0; lastCoinT = performance.now();
+      sfx('coin', coinChain); burst(c.x, c.y, c.z, 0xffd23f, 8, 4); burst(c.x, c.y, c.z, 0xffffff, 4, 2.5); updateHUD(); pulseCoinHUD();
+    }
   }
   // checkpoints
   for (const cp of w.checkpoints) {
@@ -556,6 +569,7 @@ function toast(msg) { const el = $('toast'); el.textContent = msg; el.classList.
 let hintTimer = 0;
 function hint(msg, ms) { const el = $('hint'); el.textContent = msg; el.classList.add('on'); clearTimeout(hintTimer); hintTimer = setTimeout(() => el.classList.remove('on'), ms || 5000); }
 let hudCache = '';
+function pulseCoinHUD() { const el = $('hudCoins').parentElement; el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse'); }
 function updateHUD(force) {
   if (!world) return;
   const s = `${world.got}/${world.total}|${P.hearts}`;

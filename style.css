@@ -73,3 +73,6 @@ button.ghost{background:#ffffff33;box-shadow:none}
   .menu{gap:8px}
   .menu button{padding:9px 18px}
 }
+
+.pill.pulse{animation:hudPulse .3s}
+@keyframes hudPulse{40%{transform:scale(1.25);background:rgba(255,200,60,.7)}}
