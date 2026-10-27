@@ -48,8 +48,9 @@
       <h2>How to play</h2>
       <ul>
         <li><b>Move:</b> joystick (left thumb) · WASD / arrow keys</li>
-        <li><b>Jump:</b> JUMP button · Space (hold for higher)</li>
-        <li><b>Action / spin-bonk:</b> ACTION button · E or J</li>
+        <li><b>Jump:</b> JUMP button · Space (hold for higher) – press again in the air to <b>double jump</b></li>
+        <li><b>Dash / roll:</b> DASH button · Shift or K (also breaks enemies)</li>
+        <li><b>Spin attack:</b> SPIN button · E or J</li>
         <li><b>Camera:</b> drag the right side of the screen / mouse · Z and X keys</li>
         <li><b>Climb:</b> walk into green vines</li>
         <li><b>Pause:</b> ❚❚ button · Esc / P</li>
@@ -63,16 +64,19 @@
   <div id="hud" class="hidden">
     <div class="pill"><span class="coin-ico"></span><span id="hudCoins">0/0</span></div>
     <div class="pill" id="hudHearts"></div>
+    <div class="pill score"><span class="sc-ico">✦</span><span id="hudScore">0</span></div>
     <div class="pill lvl" id="hudLevel">1-1</div>
     <button id="btnPause" class="round" aria-label="Pause">❚❚</button>
   </div>
+  <div id="pops"></div>
   <div id="toast"></div>
   <div id="hint"></div>
 
   <!-- Touch controls -->
   <div id="touch" class="hidden">
     <div id="joyBase"><div id="joyKnob"></div></div>
-    <button id="btnAction" class="tbtn">ACTION</button>
+    <button id="btnAction" class="tbtn">SPIN</button>
+    <button id="btnDash" class="tbtn">DASH</button>
     <button id="btnJump" class="tbtn">JUMP</button>
   </div>
 
@@ -93,6 +97,7 @@
       <div id="winStars"><span>★</span><span>★</span><span>★</span></div>
       <div class="winrow">Coins collected: <b id="winCoins">0/0</b></div>
       <div class="winrow">Enemies bonked: <b id="winFoes">0</b></div>
+      <div class="winrow">Score: <b id="winScore">0</b></div>
       <div class="winrow reward">Reward: <span class="coin-ico"></span><b id="winReward">+0</b></div>
       <button id="btnNext" class="big">Next level ▶</button>
       <div class="btnrow"><button id="btnWinRetry">↻ Retry</button><button id="btnWinLevels">Levels</button></div>

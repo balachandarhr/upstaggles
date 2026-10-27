@@ -76,3 +76,11 @@ button.ghost{background:#ffffff33;box-shadow:none}
 
 .pill.pulse{animation:hudPulse .3s}
 @keyframes hudPulse{40%{transform:scale(1.25);background:rgba(255,200,60,.7)}}
+
+#pops{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.pop{position:absolute;left:0;top:0;display:none;font-weight:900;font-size:20px;color:#ffe45c;text-shadow:0 2px 0 #b8401c,0 0 10px #ffb30088;white-space:nowrap;will-change:transform}
+.pop.big{font-size:26px;color:#fff;text-shadow:0 3px 0 #e2742b,0 0 14px #ff6b3d}
+.pop.combo{font-size:32px;color:#7dfcff;text-shadow:0 3px 0 #1b4f9c,0 0 16px #00e5ff}
+.pill.score{font-size:17px}
+.sc-ico{color:#7dfcff}
+#btnDash{width:66px;height:66px;right:max(24px,env(safe-area-inset-right));bottom:calc(max(30px,env(safe-area-inset-bottom)) + 108px);background:#8a5cff;box-shadow:0 6px 0 #5a32c0;font-size:13px}

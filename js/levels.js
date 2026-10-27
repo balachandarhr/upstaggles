@@ -109,7 +109,7 @@ function L4() {
   ring(c, [12, 6, -58], 2.5, 6);
   return {
     name: 'Drifting Meadow', maxReward: 175,
-    hint: 'Ride the moving platforms! A grumpy Grumble blocks the way – press ACTION (E/J) to spin-bonk it, or stomp on it.',
+    hint: 'Ride the moving platforms! A grumpy Grumble blocks the way – press SPIN (E/J) to bonk it, DASH (Shift) through it, or stomp on it.',
     palette: { skyTop: 0x2f9cff, skyLow: 0xdaf6ff, grass: 0x9be05a, dirt: 0xb07a4a },
     start: [0, 0, 2.5],
     platforms: [
