@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#4fb3ff">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>UPSTAGGLES – Beginner Valley (prototype)</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div id="ui">
+  <!-- Splash -->
+  <div id="splash" class="screen show">
+    <div class="logo">UP<span>STAGGLES</span></div>
+    <div class="tag">A colourful climbing adventure</div>
+    <div id="tapStart" class="tap">Loading…</div>
+    <div class="foot">Prototype · World 1 · Beginner Valley</div>
+  </div>
+
+  <!-- Home -->
+  <div id="home" class="screen">
+    <div class="logo small">UP<span>STAGGLES</span></div>
+    <div class="stats"><span class="coin-ico"></span><b id="walletTxt">0</b><span class="star-ico">★</span><b id="starTxt">0/15</b></div>
+    <div class="menu">
+      <button id="btnPlay" class="big">▶ Play</button>
+      <button id="btnLevels">Levels</button>
+      <button id="btnHow">How to play</button>
+      <button id="btnSound">Sound: On</button>
+    </div>
+  </div>
+
+  <!-- Level select -->
+  <div id="levels" class="screen">
+    <h2>World 1 · Beginner Valley</h2>
+    <div id="levelGrid"></div>
+    <button id="btnLevelsBack" class="ghost">← Back</button>
+  </div>
+
+  <!-- How to play -->
+  <div id="howto" class="screen modal">
+    <div class="card">
+      <h2>How to play</h2>
+      <ul>
+        <li><b>Move:</b> joystick (left thumb) · WASD / arrow keys</li>
+        <li><b>Jump:</b> JUMP button · Space (hold for higher)</li>
+        <li><b>Action / spin-bonk:</b> ACTION button · E or J</li>
+        <li><b>Camera:</b> drag the right side of the screen / mouse · Z and X keys</li>
+        <li><b>Climb:</b> walk into green vines</li>
+        <li><b>Pause:</b> ❚❚ button · Esc / P</li>
+      </ul>
+      <p>Collect coins, touch flags to save a checkpoint, and reach the swirling portal. Grab every coin for 3 stars!</p>
+      <button id="btnHowBack" class="big">Got it</button>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div class="pill"><span class="coin-ico"></span><span id="hudCoins">0/0</span></div>
+    <div class="pill" id="hudHearts"></div>
+    <div class="pill lvl" id="hudLevel">1-1</div>
+    <button id="btnPause" class="round" aria-label="Pause">❚❚</button>
+  </div>
+  <div id="toast"></div>
+  <div id="hint"></div>
+
+  <!-- Touch controls -->
+  <div id="touch" class="hidden">
+    <div id="joyBase"><div id="joyKnob"></div></div>
+    <button id="btnAction" class="tbtn">ACTION</button>
+    <button id="btnJump" class="tbtn">JUMP</button>
+  </div>
+
+  <!-- Pause -->
+  <div id="pause" class="screen modal">
+    <div class="card">
+      <h2>Paused</h2>
+      <button id="btnResume" class="big">▶ Resume</button>
+      <button id="btnRetry">↻ Retry level</button>
+      <div class="btnrow"><button id="btnPauseLevels">Levels</button><button id="btnPauseHome">Home</button></div>
+    </div>
+  </div>
+
+  <!-- Victory -->
+  <div id="win" class="screen modal">
+    <div class="card">
+      <h2 id="winTitle">Level Clear!</h2>
+      <div id="winStars"><span>★</span><span>★</span><span>★</span></div>
+      <div class="winrow">Coins collected: <b id="winCoins">0/0</b></div>
+      <div class="winrow">Enemies bonked: <b id="winFoes">0</b></div>
+      <div class="winrow reward">Reward: <span class="coin-ico"></span><b id="winReward">+0</b></div>
+      <button id="btnNext" class="big">Next level ▶</button>
+      <div class="btnrow"><button id="btnWinRetry">↻ Retry</button><button id="btnWinLevels">Levels</button></div>
+    </div>
+  </div>
+</div>
+
+<noscript>UPSTAGGLES needs JavaScript and WebGL.</noscript>
+<script type="module" src="js/game.js"></script>
+</body>
+</html>
