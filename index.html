@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#4fb3ff">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>UPSTAGGLES – Beginner Valley (prototype)</title>
+<title>UPSTAGGLES – 3D platform adventure · 250 levels</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
@@ -18,28 +18,89 @@
   <!-- Splash -->
   <div id="splash" class="screen show">
     <div class="logo">UP<span>STAGGLES</span></div>
-    <div class="tag">A colourful climbing adventure</div>
+    <div class="tag">Run · jump · climb · fight — 10 worlds, 250 levels, 10 bosses</div>
     <div id="tapStart" class="tap">Loading…</div>
-    <div class="foot">Prototype · World 1 · Beginner Valley</div>
+    <div class="foot">Free to play · no ads · no purchases</div>
   </div>
 
   <!-- Home -->
   <div id="home" class="screen">
     <div class="logo small">UP<span>STAGGLES</span></div>
-    <div class="stats"><span class="coin-ico"></span><b id="walletTxt">0</b><span class="star-ico">★</span><b id="starTxt">0/15</b></div>
+    <div class="stats"><span class="coin-ico"></span><b id="walletTxt">0</b><span class="star-ico">★</span><b id="starTxt">0/750</b></div>
     <div class="menu">
       <button id="btnPlay" class="big">▶ Play</button>
-      <button id="btnLevels">Levels</button>
+      <button id="btnMap">🗺 World map</button>
+      <div class="btnrow"><button id="btnChars">🧍 Characters</button><button id="btnShop">🛒 Shop</button></div>
+      <div class="btnrow"><button id="btnDaily">🎁 Daily</button><button id="btnSettings">⚙ Settings</button></div>
       <button id="btnHow">How to play</button>
-      <button id="btnSound">Sound: On</button>
     </div>
   </div>
 
+  <!-- World map -->
+  <div id="map" class="screen scroll">
+    <h2>World map</h2>
+    <div id="worldGrid"></div>
+    <button id="btnMapBack" class="ghost">← Home</button>
+  </div>
+
   <!-- Level select -->
-  <div id="levels" class="screen">
-    <h2>World 1 · Beginner Valley</h2>
+  <div id="levels" class="screen scroll">
+    <h2 id="worldTitle">World 1</h2>
+    <div class="sub" id="worldSub"></div>
     <div id="levelGrid"></div>
-    <button id="btnLevelsBack" class="ghost">← Back</button>
+    <div class="btnrow nav"><button id="btnPrevW" class="ghost">◀ World</button><button id="btnLevelsBack" class="ghost">🗺 Map</button><button id="btnNextW" class="ghost">World ▶</button></div>
+  </div>
+
+  <!-- Characters -->
+  <div id="chars" class="screen scroll">
+    <h2>Characters</h2>
+    <div class="stats"><span class="coin-ico"></span><b id="charWallet">0</b></div>
+    <div id="charGrid"></div>
+    <button id="btnCharsBack" class="ghost">← Home</button>
+  </div>
+
+  <!-- Shop -->
+  <div id="shop" class="screen scroll">
+    <h2>Coin shop</h2>
+    <div class="stats"><span class="coin-ico"></span><b id="shopWallet">0</b></div>
+    <div class="sub">Power-ups are used automatically at the start of your next level. Stuck? Skip any level for 500 coins from the pause or fail menu.</div>
+    <div id="shopGrid"></div>
+    <div class="sub">Coin packs · VIP · rewarded ads</div>
+    <div class="btnrow placeholder"><button disabled>Coin packs — not available</button><button disabled>Watch ad — not available</button></div>
+    <div class="sub tiny">This free build has no real-money purchases or ads. These are placeholders only.</div>
+    <button id="btnShopBack" class="ghost">← Home</button>
+  </div>
+
+  <!-- Daily -->
+  <div id="daily" class="screen modal">
+    <div class="card">
+      <h2>Daily reward</h2>
+      <div id="dailyGrid"></div>
+      <button id="btnClaim" class="big">Claim</button>
+      <button id="btnDailyBack">← Back</button>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div id="settings" class="screen modal">
+    <div class="card settings">
+      <h2>Settings</h2>
+      <label class="row">Sound <input type="checkbox" id="setSound"></label>
+      <label class="row">Music volume <input type="range" id="setMusic" min="0" max="1" step="0.05"></label>
+      <label class="row">Effects volume <input type="range" id="setSfx" min="0" max="1" step="0.05"></label>
+      <label class="row">Graphics <select id="setQuality"><option value="auto">Auto</option><option value="0">Low</option><option value="1">Medium</option><option value="2">High</option></select></label>
+      <label class="row">Camera sensitivity <input type="range" id="setCam" min="0.4" max="2" step="0.1"></label>
+      <label class="row">Show FPS <input type="checkbox" id="setFps"></label>
+      <button id="btnReset" class="danger">Reset progress…</button>
+      <button id="btnSettingsBack" class="big">Done</button>
+    </div>
+  </div>
+  <div id="confirm" class="screen modal">
+    <div class="card">
+      <h2>Reset all progress?</h2>
+      <p>Levels, stars, coins, characters and power-ups will be erased. Settings are kept.</p>
+      <div class="btnrow"><button id="btnConfirmNo" class="big">Cancel</button><button id="btnConfirmYes" class="danger">Erase</button></div>
+    </div>
   </div>
 
   <!-- How to play -->
@@ -53,9 +114,10 @@
         <li><b>Spin attack:</b> SPIN button · E or J</li>
         <li><b>Camera:</b> drag the right side of the screen / mouse · Z and X keys</li>
         <li><b>Climb:</b> walk into green vines</li>
+        <li><b>Bosses:</b> dodge the attacks; when the boss is dizzy (★ ring) hit it with spin, dash or a stomp</li>
         <li><b>Pause:</b> ❚❚ button · Esc / P</li>
       </ul>
-      <p>Collect coins, touch flags to save a checkpoint, and reach the swirling portal. Grab every coin for 3 stars!</p>
+      <p>Collect coins, touch flags to save a checkpoint, and reach the swirling portal. Grab every coin for 3 stars! Earn coins to unlock characters and power-ups. Replays pay 20%.</p>
       <button id="btnHowBack" class="big">Got it</button>
     </div>
   </div>
@@ -65,9 +127,12 @@
     <div class="pill"><span class="coin-ico"></span><span id="hudCoins">0/0</span></div>
     <div class="pill" id="hudHearts"></div>
     <div class="pill score"><span class="sc-ico">✦</span><span id="hudScore">0</span></div>
+    <div class="pill timer hidden" id="hudTimer">⏱ <span id="hudTimerTxt">0:00</span></div>
     <div class="pill lvl" id="hudLevel">1-1</div>
+    <span id="fpsTxt" class="hidden"></span>
     <button id="btnPause" class="round" aria-label="Pause">❚❚</button>
   </div>
+  <div id="bossBar" class="hidden"><div id="bossName">Boss</div><div class="bar"><div id="bossFill"></div></div></div>
   <div id="pops"></div>
   <div id="toast"></div>
   <div id="hint"></div>
@@ -86,7 +151,31 @@
       <h2>Paused</h2>
       <button id="btnResume" class="big">▶ Resume</button>
       <button id="btnRetry">↻ Retry level</button>
+      <div class="btnrow"><button id="btnPauseSkip">Skip (<span class="coin-ico"></span> 500)</button><button id="btnPauseSettings">⚙ Settings</button></div>
       <div class="btnrow"><button id="btnPauseLevels">Levels</button><button id="btnPauseHome">Home</button></div>
+    </div>
+  </div>
+
+  <!-- Fail -->
+  <div id="fail" class="screen modal">
+    <div class="card">
+      <h2 id="failTitle">Out of hearts!</h2>
+      <p id="failText"></p>
+      <button id="btnContinue" class="big">▶ Continue from checkpoint</button>
+      <button id="btnRestart">↻ Restart level</button>
+      <div class="btnrow"><button id="btnSkip">Skip</button><button id="btnFailLevels">Levels</button></div>
+    </div>
+  </div>
+
+  <!-- Finale -->
+  <div id="final" class="screen modal">
+    <div class="card finale">
+      <div class="logo small">UP<span>STAGGLES</span></div>
+      <h2>You saved all 10 worlds!</h2>
+      <p>The Cosmic Emperor has fallen and the universe is free. Thank you for playing!</p>
+      <div id="finalStats"></div>
+      <p class="tiny">Go back and collect every star, or replay with Shadow Ninja and Golden Titan.</p>
+      <button id="btnFinalHome" class="big">World map</button>
     </div>
   </div>
 

@@ -84,3 +84,58 @@ button.ghost{background:#ffffff33;box-shadow:none}
 .pill.score{font-size:17px}
 .sc-ico{color:#7dfcff}
 #btnDash{width:66px;height:66px;right:max(24px,env(safe-area-inset-right));bottom:calc(max(30px,env(safe-area-inset-bottom)) + 108px);background:#8a5cff;box-shadow:0 6px 0 #5a32c0;font-size:13px}
+/* ---- Phase 3: complete game UI ---- */
+.screen.scroll{justify-content:flex-start;overflow-y:auto;background:linear-gradient(#10204a99,#10204acc);padding-top:max(18px,env(safe-area-inset-top))}
+.screen.scroll>h2{margin:4px 0 0;font-size:30px;color:#ffd23f;text-shadow:0 3px 0 #0005}
+.sub{font-size:14px;opacity:.9;max-width:640px;text-align:center}
+.sub.tiny,.tiny{font-size:12px;opacity:.75}
+#worldGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;width:min(1000px,96vw)}
+.worldCard{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:14px 16px;min-height:118px;border-radius:22px;box-shadow:0 6px 0 #0004;text-shadow:0 2px 3px #0008}
+.worldCard .wn{font-size:13px;opacity:.9}.worldCard .wt{font-size:22px}.worldCard .wd,.worldCard .ws{font-size:12px;font-weight:700}
+.worldCard.locked{background:linear-gradient(#56607a,#3a4258);opacity:.8}
+#levelGrid{max-width:900px}
+.lvlTile{width:96px;height:108px}.lvlTile .n{font-size:32px}.lvlTile .nm{font-size:10.5px;line-height:1.1;max-height:24px;overflow:hidden}
+.lvlTile.done{background:linear-gradient(#b8f28a,#5fcf5a);color:#1d4d12;box-shadow:0 6px 0 #2d8a2a}
+.lvlTile.boss{background:linear-gradient(#ff8a6a,#d6304a);color:#fff;box-shadow:0 6px 0 #8a1830}
+.lvlTile.boss.locked{background:linear-gradient(#8a6a7a,#5a4050)}
+.lvlTile .st em{font-size:11px;font-style:normal;text-shadow:none}
+.btnrow.nav{width:min(520px,94vw)}
+button:disabled{opacity:.45;cursor:default;transform:none}
+#charGrid{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+.charCard{width:210px;background:linear-gradient(#ffffff,#e6f2ff);color:#24305e;border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;box-shadow:0 6px 0 #1f3f8a44}
+.charCard.sel{outline:4px solid #3ccf5a}
+.charCard .av{width:110px;height:110px;border-radius:50%;background-color:#cfe8ff}
+.charCard small{font-size:12px;min-height:44px}
+button.buy{background:#ff9f1c;box-shadow:0 5px 0 #b86b00}
+button.ghost2{background:#8a96b0;box-shadow:none}
+button.danger{background:#e2445c;box-shadow:0 5px 0 #8f1e30}
+#shopGrid{display:flex;flex-direction:column;gap:10px;width:min(520px,94vw)}
+.shopItem{display:flex;align-items:center;gap:12px;background:#ffffffee;color:#24305e;border-radius:18px;padding:10px 12px}
+.shopItem .ic{font-size:30px;width:44px;text-align:center}.shopItem .tx{flex:1;display:flex;flex-direction:column;text-align:left}.shopItem small{font-size:12px}
+.btnrow.placeholder{width:min(520px,94vw)}
+#dailyGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{background:#eef4ff;border-radius:12px;padding:6px 2px;display:flex;flex-direction:column;align-items:center;font-size:13px;gap:2px}
+.day.got{background:#c6f0c0;opacity:.7}.day.now{background:#ffe27a;outline:3px solid #ff9f1c}
+#btnDaily.badge{position:relative}#btnDaily.badge::after{content:'!';position:absolute;top:-6px;right:-6px;background:#ff3b5c;color:#fff;border-radius:50%;width:22px;height:22px;font-size:15px;line-height:22px}
+.settings .row{display:flex;justify-content:space-between;align-items:center;gap:14px;font-weight:800;font-size:15px;text-align:left}
+.settings input[type=range]{width:150px}.settings select{font:inherit;padding:4px 8px;border-radius:10px}
+.settings input[type=checkbox]{width:22px;height:22px}
+.pill.timer{font-size:17px}.pill.timer.low{background:#d6304acc;animation:hudPulse .5s infinite}
+#hudHearts .sh{font-size:16px;margin-left:4px}
+#fpsTxt{position:absolute;top:44px;right:0;font-size:12px;background:#0006;padding:2px 8px;border-radius:8px}
+#bossBar{position:absolute;top:calc(max(10px,env(safe-area-inset-top)) + 104px);left:50%;transform:translateX(-50%);width:min(460px,70vw);text-align:center;pointer-events:none}
+#bossName{font-weight:900;font-size:16px;color:#ffd23f;text-shadow:0 2px 0 #0008;letter-spacing:1px}
+#bossBar .bar{height:14px;border-radius:8px;background:#0007;border:2px solid #fff8;overflow:hidden}
+#bossFill{height:100%;width:100%;background:linear-gradient(90deg,#ff3b5c,#ff9f1c);transition:width .3s}
+.finale h2{color:#ff5fa2}
+#finalStats{font-size:16px;line-height:1.6}
+.hidden{display:none!important}
+@media (max-height:520px){
+  .screen.scroll>h2{font-size:22px}
+  .lvlTile{width:78px;height:84px}.lvlTile .n{font-size:24px}.lvlTile .nm{display:none}
+  #levelGrid{gap:8px}
+  .worldCard{min-height:92px;padding:10px}.worldCard .wt{font-size:18px}
+  .charCard{width:180px;padding:10px}.charCard .av{width:70px;height:70px}
+  #bossBar{top:96px;width:min(360px,50vw)}
+  .settings .row{font-size:13px}
+}
